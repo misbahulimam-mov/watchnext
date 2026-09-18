@@ -11,14 +11,20 @@ const items=[
 
 
 const indiaPicks=[
-{name:"3 Idiots",type:"Movies",genre:"Drama · Comedy",rating:"8.4",year:"2009",image:"https://imdb.iamidiotareyoutoo.com/photo/tt1187043",why:"A warm, funny coming-of-age story about friendship, pressure and following your passion."},
-{name:"Dangal",type:"Movies",genre:"Drama · Sport",rating:"8.3",year:"2016",image:"https://imdb.iamidiotareyoutoo.com/photo/tt5074352",why:"An inspiring sports drama built around family, ambition and perseverance."},
-{name:"Andhadhun",type:"Movies",genre:"Thriller · Crime",rating:"8.2",year:"2018",image:"https://imdb.iamidiotareyoutoo.com/photo/tt8108198",why:"A darkly comic thriller full of deception, reversals and unpredictable turns."},
-{name:"Tumbbad",type:"Movies",genre:"Horror · Fantasy",rating:"8.2",year:"2018",image:"https://imdb.iamidiotareyoutoo.com/photo/tt8239946",why:"Atmospheric Indian folk horror with striking world-building and a haunting story."},
-{name:"The Family Man",type:"TV Shows",genre:"Thriller · Drama",rating:"8.7",year:"2019",image:"https://imdb.iamidiotareyoutoo.com/photo/tt9544034",why:"A sharp spy thriller balancing high-stakes missions with everyday family life."},
-{name:"Panchayat",type:"TV Shows",genre:"Comedy · Drama",rating:"9.0",year:"2020",image:"https://imdb.iamidiotareyoutoo.com/photo/tt12004706",why:"A charming small-town comedy-drama with memorable characters and understated humor."},
-{name:"Scam 1992",type:"TV Shows",genre:"Drama · Crime",rating:"9.2",year:"2020",image:"https://imdb.iamidiotareyoutoo.com/photo/tt12392504",why:"A gripping financial drama about ambition, markets and the consequences of risk."},
-{name:"Paatal Lok",type:"TV Shows",genre:"Crime · Thriller",rating:"8.1",year:"2020",image:"https://imdb.iamidiotareyoutoo.com/photo/tt9680440",why:"A gritty crime mystery that explores multiple layers of people and society."}
+{name:"3 Idiots",type:"Movies",genre:"Hindi · Drama",rating:"8.4",year:"2009",image:"https://imdb.iamidiotareyoutoo.com/photo/tt1187043",why:"A warm, funny coming-of-age story about friendship, pressure and following your passion."},
+{name:"Andhadhun",type:"Movies",genre:"Hindi · Thriller",rating:"8.2",year:"2018",image:"https://imdb.iamidiotareyoutoo.com/photo/tt8108198",why:"A darkly comic thriller full of deception, reversals and unpredictable turns."},
+{name:"Tumbbad",type:"Movies",genre:"Hindi · Horror",rating:"8.2",year:"2018",image:"https://imdb.iamidiotareyoutoo.com/photo/tt8239946",why:"Atmospheric Indian folk horror with striking world-building and a haunting story."},
+{name:"Drishyam",type:"Movies",genre:"Malayalam · Thriller",rating:"8.6",year:"2013",image:"https://imdb.iamidiotareyoutoo.com/photo/tt3417422",why:"A tightly constructed family thriller built around secrets, strategy and escalating tension."},
+{name:"RRR",type:"Movies",genre:"Telugu · Action",rating:"7.8",year:"2022",image:"https://imdb.iamidiotareyoutoo.com/photo/tt8178634",why:"A spectacular Telugu action epic powered by friendship, ambition and larger-than-life set pieces."},
+{name:"Kantara",type:"Movies",genre:"Kannada · Action",rating:"8.2",year:"2022",image:"https://imdb.iamidiotareyoutoo.com/photo/tt15327088",why:"A distinctive Kannada film blending folklore, action, mystery and powerful local culture."},
+{name:"Jai Bhim",type:"Movies",genre:"Tamil · Drama",rating:"8.7",year:"2021",image:"https://imdb.iamidiotareyoutoo.com/photo/tt15097216",why:"A hard-hitting Tamil courtroom drama inspired by a fight for justice and dignity."},
+{name:"Manjummel Boys",type:"Movies",genre:"Malayalam · Adventure",rating:"8.2",year:"2024",image:"https://imdb.iamidiotareyoutoo.com/photo/tt21296434",why:"A gripping Malayalam survival drama centered on friendship, courage and an extraordinary rescue."},
+{name:"The Family Man",type:"TV Shows",genre:"Hindi · Thriller",rating:"8.7",year:"2019",image:"https://imdb.iamidiotareyoutoo.com/photo/tt9544034",why:"A sharp spy thriller balancing high-stakes missions with everyday family life."},
+{name:"Panchayat",type:"TV Shows",genre:"Hindi · Comedy",rating:"9.0",year:"2020",image:"https://imdb.iamidiotareyoutoo.com/photo/tt12004706",why:"A charming small-town comedy-drama with memorable characters and understated humor."},
+{name:"Scam 1992",type:"TV Shows",genre:"Hindi · Crime",rating:"9.2",year:"2020",image:"https://imdb.iamidiotareyoutoo.com/photo/tt12392504",why:"A gripping financial drama about ambition, markets and the consequences of risk."},
+{name:"Suzhal: The Vortex",type:"TV Shows",genre:"Tamil · Mystery",rating:"8.1",year:"2022",image:"https://imdb.iamidiotareyoutoo.com/photo/tt20704272",why:"A layered Tamil mystery series rooted in a small-town investigation and local traditions."},
+{name:"Kota Factory",type:"TV Shows",genre:"Hindi · Drama",rating:"9.0",year:"2019",image:"https://imdb.iamidiotareyoutoo.com/photo/tt9432978",why:"A grounded coming-of-age series about students, ambition, friendship and pressure."},
+{name:"Kerala Crime Files",type:"TV Shows",genre:"Malayalam · Crime",rating:"7.6",year:"2023",image:"https://imdb.iamidiotareyoutoo.com/photo/tt27418916",why:"A Malayalam police procedural following investigators through a focused, atmospheric case."}
 ];
 
 const lists=[
