@@ -83,14 +83,32 @@ const reviews=[
 ];
 
 let selectedType="All",selectedGenre="All",selectedList="all",selectedIndiaLanguage="All",selectedReviewFilter="All",selectedReleaseFilter="All",liveResults=[];
+let watchlist=JSON.parse(localStorage.getItem("watchnext-watchlist")||"[]");
+
 
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
 function card(x){
- const bg=x.image?' style="background-image:linear-gradient(180deg,#0000,#000b),url(\\''+x.image+'\\');background-size:cover;background-position:center"':'';
- return '<article class="card" data-name="'+esc(x.name)+'"><div class="poster"'+bg+'><span class="type">'+esc(x.type)+'</span><span class="initial">'+esc((x.name||"?")[0])+'</span></div><div class="info"><h3>'+esc(x.name)+' <span class="rating">★ '+esc(x.rating||"—")+'</span></h3><div class="meta">'+esc(x.year||"")+' · '+esc(x.genre||"")+'</div><p class="why">'+esc(x.why||"Explore this title and discover something new.")+'</p></div></article>';
+ const bg=x.image?' style="background-image:linear-gradient(180deg,#0000,#000b),url(\''+esc(x.image)+'\');background-size:cover;background-position:center"':'';
+ const saved=watchlist.includes(x.name);
+ return '<article class="card" data-name="'+esc(x.name)+'"><div class="poster"'+bg+'><span class="type">'+esc(x.type)+'</span><span class="initial">'+esc((x.name||"?")[0])+'</span><button class="saveBtn '+(saved?'saved':'')+'" data-save="'+esc(x.name)+'" aria-label="'+(saved?'Remove from':'Add to')+' watchlist">'+(saved?'♥':'♡')+'</button></div><div class="info"><h3>'+esc(x.name)+' <span class="rating">★ '+esc(x.rating||"—")+'</span></h3><div class="meta">'+esc(x.year||"")+' · '+esc(x.genre||"")+'</div><p class="why">'+esc(x.why||"Explore this title and discover something new.")+'</p></div></article>';
 }
 
+function saveWatchlist(){
+ localStorage.setItem("watchnext-watchlist",JSON.stringify(watchlist));
+ renderWatchlist();
+}
+function toggleWatchlist(name){
+ if(watchlist.includes(name)) watchlist=watchlist.filter(x=>x!==name); else watchlist.push(name);
+ saveWatchlist();
+ render();
+}
+function renderWatchlist(){
+ const el=document.querySelector("#watchlistGrid"); if(!el)return;
+ const source=[...items,...indiaPicks,...liveResults].filter((x,i,a)=>watchlist.includes(x.name)&&a.findIndex(y=>y.name===x.name)===i);
+ el.innerHTML=source.length?source.map(card).join(""):'<div class="apiNotice"><b>Your watchlist is empty.</b><br><span>Tap the ♡ on any title to save it here.</span></div>';
+ bindCards();
+}
 function render(){
  let source=liveResults.length?liveResults:items;
  let q=document.querySelector("#search").value.toLowerCase();
@@ -98,7 +116,7 @@ function render(){
  document.querySelector("#recommendations").innerHTML=filtered.slice(0,8).map(card).join("")||'<p style="color:#999">No matches yet. Try another title.</p>';
  document.querySelector("#trendingGrid").innerHTML=(liveResults.length?liveResults.slice(0,4):items.slice(3,7)).map(card).join("");
  document.querySelector("#gemsGrid").innerHTML=items.slice(1,5).map(card).join("");
- renderIndia();renderReleases();renderLists();renderReviews();renderComing();bindCards();
+ renderIndia();renderReleases();renderLists();renderReviews();renderComing();renderWatchlist();bindCards();
 }
 
 function renderIndia(){
@@ -149,6 +167,7 @@ function openReview(x){
 }
 
 function bindCards(){
+ document.querySelectorAll(".saveBtn").forEach(b=>b.onclick=e=>{e.stopPropagation();toggleWatchlist(b.dataset.save)});
  document.querySelectorAll(".card").forEach(c=>c.onclick=()=>{let x=[...liveResults,...items,...indiaPicks].find(x=>x.name===c.dataset.name);if(x)openModal(x)});
  document.querySelectorAll(".reviewCard").forEach(c=>c.onclick=()=>{const x=reviews.find(r=>r.title===c.dataset.review);if(x)openReview(x)});
 }
