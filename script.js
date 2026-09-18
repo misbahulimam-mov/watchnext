@@ -1,3 +1,4 @@
+/* CONTENT EDITOR: homepage content is grouped near the top of this file so titles and editorial copy can be updated without changing rendering logic. */
 const items=[
 {name:"Interstellar",type:"Movies",genre:"Sci-Fi",rating:"8.7",year:"2014",why:"For ambitious sci-fi, emotional storytelling and unforgettable worlds.",desc:"A team of explorers travels through a wormhole in space in an attempt to ensure humanity's survival.",tags:["Sci-Fi","Drama","Adventure"]},
 {name:"Severance",type:"TV Shows",genre:"Thriller",rating:"8.7",year:"2022",why:"For mysterious worlds, slow-burn tension and razor-sharp ideas.",desc:"Employees undergo a procedure that divides their work and personal memories.",tags:["Thriller","Mystery","Drama"]},
@@ -36,6 +37,17 @@ const releases=[
 {name:"Wednesday",type:"TV Show",region:"International",language:"English",date:"2025",genre:"Mystery · Comedy",note:"New season",image:"https://imdb.iamidiotareyoutoo.com/photo/tt13443470"}
 ];
 
+
+const comingSoon=[
+{name:"Mirzapur: The Movie",date:"Sep 4, 2026",region:"India · Hindi",note:"The Mirzapur world moves to the big screen."},
+{name:"Haiwaan",date:"Sep 11, 2026",region:"India · Hindi",note:"Priyadarshan's Hindi adaptation of the Malayalam thriller Oppam."},
+{name:"Practical Magic 2",date:"Sep 9, 2026",region:"International · English",note:"Sandra Bullock and Nicole Kidman return for the fantasy sequel."},
+{name:"Primetime",date:"Sep 25, 2026",region:"International · English",note:"A psychological crime thriller led by Robert Pattinson."},
+{name:"The Vvaan: Force of the Forest",date:"Sep 2026",region:"India · Hindi",note:"A fantasy-leaning Indian theatrical title on the September radar."},
+{name:"Mandaadi",date:"Sep 10, 2026",region:"India · Tamil",note:"A Tamil sports drama centered on a traditional sailboat race."},
+{name:"The Revolutionaries",date:"Sep 2026",region:"India · Hindi",note:"Prime Video series based on Sanjeev Sanyal's book."},
+{name:"Sardar 2",date:"Sep 2026",region:"India · Tamil",note:"Karthi returns to the spy franchise."}
+];
 const lists=[
 {id:"sci-fi-movies",type:"Movies",title:"Top 10 Sci-Fi Movies",desc:"Mind-bending worlds, ambitious ideas and stories that stay with you.",count:10,items:["Interstellar","Arrival","Dune: Part Two","The Matrix","Blade Runner 2049","2001: A Space Odyssey","Ex Machina","Children of Men","The Martian","Her"]},
 {id:"thriller-movies",type:"Movies",title:"Top 10 Thriller Movies",desc:"Tense mysteries, psychological games and unforgettable twists.",count:10,items:["Prisoners","Gone Girl","Se7en","Zodiac","Shutter Island","The Silence of the Lambs","Nightcrawler","The Invisible Man","Wind River","Nocturnal Animals"]},
@@ -86,7 +98,7 @@ function render(){
  document.querySelector("#recommendations").innerHTML=filtered.slice(0,8).map(card).join("")||'<p style="color:#999">No matches yet. Try another title.</p>';
  document.querySelector("#trendingGrid").innerHTML=(liveResults.length?liveResults.slice(0,4):items.slice(3,7)).map(card).join("");
  document.querySelector("#gemsGrid").innerHTML=items.slice(1,5).map(card).join("");
- renderIndia();renderReleases();renderLists();renderReviews();bindCards();
+ renderIndia();renderReleases();renderLists();renderReviews();renderComing();bindCards();
 }
 
 function renderIndia(){
@@ -108,6 +120,13 @@ function openRelease(x){
  document.querySelector("#modalBody").innerHTML='<div class="eyebrow">'+esc(x.type)+' · '+esc(x.region)+'</div><h2>'+esc(x.name)+'</h2><div class="tags"><span class="tag">'+esc(x.language)+'</span><span class="tag">'+esc(x.genre)+'</span></div><p><b>Release:</b> '+esc(x.date)+'</p><p>'+esc(x.note)+'</p><p class="reviewNote">A full WatchNext review will appear here once this title has been reviewed by the editorial team.</p>';
  document.querySelector("#modal").classList.add("open");
 }
+
+function renderComing(){
+ const el=document.querySelector("#comingGrid");
+ if(!el)return;
+ el.innerHTML=comingSoon.map(x=>'<article class="comingCard"><div class="comingDate">'+esc(x.date)+'</div><h3>'+esc(x.name)+'</h3><div class="comingRegion">'+esc(x.region)+'</div><p>'+esc(x.note)+'</p></article>').join("");
+}
+
 function renderLists(){
  const filtered=selectedList==="all"?lists:lists.filter(x=>x.type===selectedList);
  document.querySelector("#listGrid").innerHTML=filtered.map(x=>'<article class="listCard" data-list-id="'+x.id+'"><div class="listType">'+esc(x.type)+'</div><h3>'+esc(x.title)+'</h3><p>'+esc(x.desc)+'</p><div class="listCount"><b>'+x.count+'</b> curated picks · View list →</div></article>').join("");
