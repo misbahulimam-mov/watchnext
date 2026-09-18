@@ -9,6 +9,18 @@ const items=[
 {name:"Mindhunter",type:"TV Shows",genre:"Thriller",rating:"8.6",year:"2017",why:"For intelligent crime stories, unsettling psychology and brilliant dialogue.",desc:"FBI agents develop criminal profiling by studying the minds of notorious killers.",tags:["Crime","Thriller","Drama"]}
 ];
 
+
+const indiaPicks=[
+{name:"3 Idiots",type:"Movies",genre:"Drama · Comedy",rating:"8.4",year:"2009",image:"https://imdb.iamidiotareyoutoo.com/photo/tt1187043",why:"A warm, funny coming-of-age story about friendship, pressure and following your passion."},
+{name:"Dangal",type:"Movies",genre:"Drama · Sport",rating:"8.3",year:"2016",image:"https://imdb.iamidiotareyoutoo.com/photo/tt5074352",why:"An inspiring sports drama built around family, ambition and perseverance."},
+{name:"Andhadhun",type:"Movies",genre:"Thriller · Crime",rating:"8.2",year:"2018",image:"https://imdb.iamidiotareyoutoo.com/photo/tt8108198",why:"A darkly comic thriller full of deception, reversals and unpredictable turns."},
+{name:"Tumbbad",type:"Movies",genre:"Horror · Fantasy",rating:"8.2",year:"2018",image:"https://imdb.iamidiotareyoutoo.com/photo/tt8239946",why:"Atmospheric Indian folk horror with striking world-building and a haunting story."},
+{name:"The Family Man",type:"TV Shows",genre:"Thriller · Drama",rating:"8.7",year:"2019",image:"https://imdb.iamidiotareyoutoo.com/photo/tt9544034",why:"A sharp spy thriller balancing high-stakes missions with everyday family life."},
+{name:"Panchayat",type:"TV Shows",genre:"Comedy · Drama",rating:"9.0",year:"2020",image:"https://imdb.iamidiotareyoutoo.com/photo/tt12004706",why:"A charming small-town comedy-drama with memorable characters and understated humor."},
+{name:"Scam 1992",type:"TV Shows",genre:"Drama · Crime",rating:"9.2",year:"2020",image:"https://imdb.iamidiotareyoutoo.com/photo/tt12392504",why:"A gripping financial drama about ambition, markets and the consequences of risk."},
+{name:"Paatal Lok",type:"TV Shows",genre:"Crime · Thriller",rating:"8.1",year:"2020",image:"https://imdb.iamidiotareyoutoo.com/photo/tt9680440",why:"A gritty crime mystery that explores multiple layers of people and society."}
+];
+
 const lists=[
 {id:"sci-fi-movies",type:"Movies",title:"Top 10 Sci-Fi Movies",desc:"Mind-bending worlds, ambitious ideas and stories that stay with you.",count:10,items:["Interstellar","Arrival","Dune: Part Two","The Matrix","Blade Runner 2049"]},
 {id:"thriller-movies",type:"Movies",title:"Top 10 Thriller Movies",desc:"Tense mysteries, psychological games and unforgettable twists.",count:10,items:["Prisoners","Gone Girl","Se7en","Zodiac","Shutter Island"]},
@@ -42,7 +54,11 @@ function render(){
  document.querySelector("#recommendations").innerHTML=filtered.slice(0,8).map(card).join("")||'<p style="color:#999">No matches yet. Try another title.</p>';
  document.querySelector("#trendingGrid").innerHTML=(liveResults.length?liveResults.slice(0,4):items.slice(3,7)).map(card).join("");
  document.querySelector("#gemsGrid").innerHTML=items.slice(1,5).map(card).join("");
- renderLists();renderReviews();bindCards();
+ renderIndia();renderLists();renderReviews();bindCards();
+}
+
+function renderIndia(){
+ document.querySelector("#indiaGrid").innerHTML=indiaPicks.map(card).join("");
 }
 
 function renderLists(){
