@@ -82,7 +82,7 @@ function openReview(x){
 }
 
 function bindCards(){
- document.querySelectorAll(".card").forEach(c=>c.onclick=()=>{let x=[...liveResults,...items].find(x=>x.name===c.dataset.name);if(x)openModal(x)});
+ document.querySelectorAll(".card").forEach(c=>c.onclick=()=>{let x=[...liveResults,...items,...indiaPicks].find(x=>x.name===c.dataset.name);if(x)openModal(x)});
  document.querySelectorAll(".reviewCard").forEach(c=>c.onclick=()=>{const x=reviews.find(r=>r.title===c.dataset.review);if(x)openReview(x)});
 }
 
