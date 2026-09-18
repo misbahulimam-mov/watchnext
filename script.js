@@ -27,6 +27,15 @@ const indiaPicks=[
 {name:"Kerala Crime Files",type:"TV Shows",genre:"Malayalam · Crime",rating:"7.6",year:"2023",image:"https://imdb.iamidiotareyoutoo.com/photo/tt27418916",why:"A Malayalam police procedural following investigators through a focused, atmospheric case."}
 ];
 
+const releases=[
+{name:"Dhurandhar",type:"Movie",region:"India",language:"Hindi",date:"2025",genre:"Action · Thriller",note:"Indian theatrical release",image:"https://imdb.iamidiotareyoutoo.com/photo/tt31426445"},
+{name:"Lokah Chapter 1: Chandra",type:"Movie",region:"India",language:"Malayalam",date:"2025",genre:"Fantasy · Action",note:"Malayalam superhero film",image:"https://imdb.iamidiotareyoutoo.com/photo/tt31415162"},
+{name:"Coolie",type:"Movie",region:"India",language:"Tamil",date:"2025",genre:"Action · Drama",note:"Tamil action entertainer",image:"https://imdb.iamidiotareyoutoo.com/photo/tt28013732"},
+{name:"War 2",type:"Movie",region:"India",language:"Hindi · Telugu · Tamil",date:"2025",genre:"Action · Thriller",note:"Pan-India theatrical release",image:"https://imdb.iamidiotareyoutoo.com/photo/tt21956154"},
+{name:"The Fantastic Four: First Steps",type:"Movie",region:"International",language:"English",date:"2025",genre:"Action · Sci-Fi",note:"Marvel Studios release",image:"https://imdb.iamidiotareyoutoo.com/photo/tt10676052"},
+{name:"Wednesday",type:"TV Show",region:"International",language:"English",date:"2025",genre:"Mystery · Comedy",note:"New season",image:"https://imdb.iamidiotareyoutoo.com/photo/tt13443470"}
+];
+
 const lists=[
 {id:"sci-fi-movies",type:"Movies",title:"Top 10 Sci-Fi Movies",desc:"Mind-bending worlds, ambitious ideas and stories that stay with you.",count:10,items:["Interstellar","Arrival","Dune: Part Two","The Matrix","Blade Runner 2049","2001: A Space Odyssey","Ex Machina","Children of Men","The Martian","Her"]},
 {id:"thriller-movies",type:"Movies",title:"Top 10 Thriller Movies",desc:"Tense mysteries, psychological games and unforgettable twists.",count:10,items:["Prisoners","Gone Girl","Se7en","Zodiac","Shutter Island","The Silence of the Lambs","Nightcrawler","The Invisible Man","Wind River","Nocturnal Animals"]},
@@ -47,7 +56,7 @@ const reviews=[
 {type:"Book Review",region:"International",title:"The Silent Patient",score:"4.4/5",text:"A fast-moving psychological mystery built around a central question that keeps the pages turning.",verdict:"Worth Reading",date:"Featured Review",release:"Book"}
 ];
 
-let selectedType="All",selectedGenre="All",selectedList="all",selectedIndiaLanguage="All",selectedReviewFilter="All",liveResults=[];
+let selectedType="All",selectedGenre="All",selectedList="all",selectedIndiaLanguage="All",selectedReviewFilter="All",selectedReleaseFilter="All",liveResults=[];
 
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
@@ -63,7 +72,7 @@ function render(){
  document.querySelector("#recommendations").innerHTML=filtered.slice(0,8).map(card).join("")||'<p style="color:#999">No matches yet. Try another title.</p>';
  document.querySelector("#trendingGrid").innerHTML=(liveResults.length?liveResults.slice(0,4):items.slice(3,7)).map(card).join("");
  document.querySelector("#gemsGrid").innerHTML=items.slice(1,5).map(card).join("");
- renderIndia();renderLists();renderReviews();bindCards();
+ renderIndia();renderReleases();renderLists();renderReviews();bindCards();
 }
 
 function renderIndia(){
@@ -72,6 +81,19 @@ function renderIndia(){
 }
 
 
+function releaseCard(x){
+ return '<article class="releaseCard" data-release="'+esc(x.name)+'"><div class="releasePoster" style="background-image:linear-gradient(180deg,#0000,#000d),url(\''+esc(x.image||'')+'\');background-size:cover;background-position:center"><span class="releaseBadge">'+esc(x.type)+'</span><span class="releaseYear">'+esc(x.date)+'</span></div><div class="releaseInfo"><div class="releaseRegion">'+esc(x.region)+' · '+esc(x.language)+'</div><h3>'+esc(x.name)+'</h3><div class="meta">'+esc(x.genre)+'</div><p>'+esc(x.note)+'</p><button class="reviewLink" data-release-review="'+esc(x.name)+'">Read Review →</button></div></article>';
+}
+function renderReleases(){
+ const filtered=selectedReleaseFilter==="All"?releases:releases.filter(x=>x.region===selectedReleaseFilter||x.type===selectedReleaseFilter);
+ document.querySelector("#releasesGrid").innerHTML=filtered.map(releaseCard).join("");
+ document.querySelectorAll(".releaseCard").forEach(c=>c.onclick=e=>{if(e.target.closest(".reviewLink"))return;openRelease(releases.find(x=>x.name===c.dataset.release))});
+ document.querySelectorAll(".reviewLink").forEach(b=>b.onclick=()=>{const x=releases.find(r=>r.name===b.dataset.releaseReview);const r=reviews.find(v=>v.title===x.name);if(r)openReview(r);else openRelease(x)});
+}
+function openRelease(x){
+ document.querySelector("#modalBody").innerHTML='<div class="eyebrow">'+esc(x.type)+' · '+esc(x.region)+'</div><h2>'+esc(x.name)+'</h2><div class="tags"><span class="tag">'+esc(x.language)+'</span><span class="tag">'+esc(x.genre)+'</span></div><p><b>Release:</b> '+esc(x.date)+'</p><p>'+esc(x.note)+'</p><p class="reviewNote">A full WatchNext review will appear here once this title has been reviewed by the editorial team.</p>';
+ document.querySelector("#modal").classList.add("open");
+}
 function renderLists(){
  const filtered=selectedList==="all"?lists:lists.filter(x=>x.type===selectedList);
  document.querySelector("#listGrid").innerHTML=filtered.map(x=>'<article class="listCard" data-list-id="'+x.id+'"><div class="listType">'+esc(x.type)+'</div><h3>'+esc(x.title)+'</h3><p>'+esc(x.desc)+'</p><div class="listCount"><b>'+x.count+'</b> curated picks · View list →</div></article>').join("");
@@ -121,6 +143,7 @@ document.querySelectorAll(".filter").forEach(b=>b.onclick=()=>{document.querySel
 document.querySelectorAll(".listTab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".listTab").forEach(x=>x.classList.remove("active"));b.classList.add("active");selectedList=b.dataset.list;renderLists()});
 document.querySelectorAll(".indiaTab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".indiaTab").forEach(x=>x.classList.remove("active"));b.classList.add("active");selectedIndiaLanguage=b.dataset.language;renderIndia();bindCards()});
 document.querySelectorAll(".reviewTab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".reviewTab").forEach(x=>x.classList.remove("active"));b.classList.add("active");selectedReviewFilter=b.dataset.review;renderReviews();bindCards()});
+document.querySelectorAll(".releaseTab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".releaseTab").forEach(x=>x.classList.remove("active"));b.classList.add("active");selectedReleaseFilter=b.dataset.release;renderReleases()});
 document.querySelector("#recommendBtn").onclick=()=>{const q=document.querySelector("#search").value.trim();if(q)liveSearch(q);document.querySelector("#discover").scrollIntoView({behavior:"smooth"})};
 document.querySelector("#close").onclick=()=>document.querySelector("#modal").classList.remove("open");
 document.querySelector("#modal").onclick=e=>{if(e.target.id==="modal")e.currentTarget.classList.remove("open")};
