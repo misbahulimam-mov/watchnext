@@ -29,12 +29,12 @@ const indiaPicks=[
 ];
 
 const releases=[
-{name:"Dhurandhar",type:"Movie",region:"India",language:"Hindi",date:"2025",genre:"Action · Thriller",note:"Indian theatrical release",image:"https://imdb.iamidiotareyoutoo.com/photo/tt31426445"},
-{name:"Lokah Chapter 1: Chandra",type:"Movie",region:"India",language:"Malayalam",date:"2025",genre:"Fantasy · Action",note:"Malayalam superhero film",image:"https://imdb.iamidiotareyoutoo.com/photo/tt31415162"},
-{name:"Coolie",type:"Movie",region:"India",language:"Tamil",date:"2025",genre:"Action · Drama",note:"Tamil action entertainer",image:"https://imdb.iamidiotareyoutoo.com/photo/tt28013732"},
-{name:"War 2",type:"Movie",region:"India",language:"Hindi · Telugu · Tamil",date:"2025",genre:"Action · Thriller",note:"Pan-India theatrical release",image:"https://imdb.iamidiotareyoutoo.com/photo/tt21956154"},
-{name:"The Fantastic Four: First Steps",type:"Movie",region:"International",language:"English",date:"2025",genre:"Action · Sci-Fi",note:"Marvel Studios release",image:"https://imdb.iamidiotareyoutoo.com/photo/tt10676052"},
-{name:"Wednesday",type:"TV Show",region:"International",language:"English",date:"2025",genre:"Mystery · Comedy",note:"New season",image:"https://imdb.iamidiotareyoutoo.com/photo/tt13443470"}
+{name:"Resident Evil",type:"Movie",region:"International",language:"English · Hindi · Tamil · Telugu",date:"Sep 18, 2026",genre:"Horror · Action",note:"Sony Pictures is releasing the new Resident Evil film in India across four languages.",image:"https://imdb.iamidiotareyoutoo.com/photo/tt21046512"},
+{name:"Daayra",type:"Movie",region:"India",language:"Hindi",date:"Sep 18, 2026",genre:"Thriller",note:"A new Hindi thriller starring Kareena Kapoor Khan and Prithviraj Sukumaran.",image:""},
+{name:"Vibe",type:"Movie",region:"India",language:"Hindi",date:"Sep 18, 2026",genre:"Drama",note:"Kunal Kemmu's second directorial, with Preity Zinta among the cast.",image:""},
+{name:"Lust Stories 3",type:"TV Show",region:"India",language:"Hindi",date:"Sep 18, 2026",genre:"Anthology · Drama",note:"The third installment of the anthology arrives on Netflix this week.",image:""},
+{name:"The Paper",type:"TV Show",region:"International",language:"English",date:"Sep 2026",genre:"Comedy · Drama",note:"One of the international series highlighted in September's new-TV lineup.",image:""},
+{name:"Sardar 2",type:"Movie",region:"India",language:"Tamil",date:"Sep 2026",genre:"Action · Spy",note:"Karthi returns as the spy in the Tamil sequel.",image:""}
 ];
 
 
