@@ -3,23 +3,35 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>WatchNext — Never Wonder What to Watch</title>
-<meta name="description" content="Discover your next favorite movie, TV show, or book. Never Wonder What to Watch.">
+<meta name="description" content="WatchNext — curated movie, TV show and book lists, reviews and recommendations.">
 <link rel="stylesheet" href="styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<header class="header"><a class="logo" href="#">Watch<span>Next</span></a><nav><a href="#discover">Discover</a><a href="#trending">Trending</a><a href="#gems">Hidden Gems</a></nav><button class="ghost" id="themeBtn" aria-label="Toggle theme">◐</button></header>
+<header class="header"><a class="logo" href="#">Watch<span>Next</span></a><nav><a href="#lists">Top Lists</a><a href="#reviews">Reviews</a><a href="#discover">Discover</a><a href="#gems">Hidden Gems</a></nav><button class="ghost" id="themeBtn" aria-label="Toggle theme">◐</button></header>
 <main>
-<section class="hero"><div class="eyebrow">YOUR NEXT OBSESSION AWAITS</div><h1>Never Wonder<br><em>What to Watch.</em></h1><p>Tell us what you loved. We'll help you find what comes next.</p>
+<section class="hero"><div class="eyebrow">YOUR NEXT OBSESSION AWAITS</div><h1>Never Wonder<br><em>What to Watch.</em></h1><p>Curated lists, honest reviews and recommendations for movies, TV shows and books.</p>
 <div class="searchbox"><span>⌕</span><input id="search" placeholder="Search a movie, show, or book you love…" autocomplete="off"><button id="recommendBtn">Get Recommendations</button></div>
 <div class="chips"><button class="chip active" data-type="All">All</button><button class="chip" data-type="Movies">Movies</button><button class="chip" data-type="TV Shows">TV Shows</button><button class="chip" data-type="Books">Books</button></div>
 </section>
-<section id="discover" class="section"><div class="sectionHead"><div><div class="eyebrow">CURATED FOR YOU</div><h2>Recommended <span>Next</span></h2></div><div class="filters"><button class="filter active">All</button><button class="filter">Drama</button><button class="filter">Thriller</button><button class="filter">Sci-Fi</button></div></div><div id="recommendations" class="grid"></div></section>
+
+<section id="lists" class="section">
+<div class="sectionHead"><div><div class="eyebrow">CURATED PICKS</div><h2>Top Lists</h2></div><div class="listTabs"><button class="listTab active" data-list="all">All</button><button class="listTab" data-list="Movies">Movies</button><button class="listTab" data-list="TV Shows">TV Shows</button><button class="listTab" data-list="Books">Books</button></div></div>
+<div id="listGrid" class="listGrid"></div>
+</section>
+
+<section id="reviews" class="section">
+<div class="sectionHead"><div><div class="eyebrow">WHAT'S WORTH YOUR TIME</div><h2>Latest Reviews</h2></div></div>
+<div id="reviewsGrid" class="reviewsGrid"></div>
+</section>
+
+<section id="discover" class="section"><div class="sectionHead"><div><div class="eyebrow">LIVE SEARCH</div><h2>Discover <span>Next</span></h2></div><div class="filters"><button class="filter active">All</button><button class="filter">Drama</button><button class="filter">Thriller</button><button class="filter">Sci-Fi</button></div></div><div id="recommendations" class="grid"></div></section>
+
 <section id="trending" class="section"><div class="sectionHead"><div><div class="eyebrow">RIGHT NOW</div><h2>Trending Now</h2></div></div><div id="trendingGrid" class="grid"></div></section>
 <section id="gems" class="section"><div class="sectionHead"><div><div class="eyebrow">WORTH DISCOVERING</div><h2>Hidden Gems</h2></div></div><div id="gemsGrid" class="grid"></div></section>
 </main>
 <div class="modal" id="modal"><div class="modalCard"><button class="close" id="close">×</button><div id="modalBody"></div></div></div>
-<footer><div class="logo">Watch<span>Next</span></div><p>Never Wonder What to Watch.</p><small>Movies · TV Shows · Books</small></footer>
+<footer><div class="logo">Watch<span>Next</span></div><p>Never Wonder What to Watch.</p><small>Movies · TV Shows · Books · Reviews · Curated Lists</small></footer>
 <script src="script.js"></script>
 </body></html>
