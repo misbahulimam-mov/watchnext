@@ -28,12 +28,12 @@ const indiaPicks=[
 ];
 
 const lists=[
-{id:"sci-fi-movies",type:"Movies",title:"Top 10 Sci-Fi Movies",desc:"Mind-bending worlds, ambitious ideas and stories that stay with you.",count:10,items:["Interstellar","Arrival","Dune: Part Two","The Matrix","Blade Runner 2049"]},
-{id:"thriller-movies",type:"Movies",title:"Top 10 Thriller Movies",desc:"Tense mysteries, psychological games and unforgettable twists.",count:10,items:["Prisoners","Gone Girl","Se7en","Zodiac","Shutter Island"]},
-{id:"crime-shows",type:"TV Shows",title:"Top 10 Crime Series",desc:"Compelling investigations, complex characters and dark stories.",count:10,items:["Mindhunter","True Detective","The Wire","Breaking Bad","Fargo"]},
-{id:"sci-fi-shows",type:"TV Shows",title:"Top 10 Sci-Fi Series",desc:"The series to explore when reality is not quite enough.",count:10,items:["Dark","Severance","Black Mirror","The Expanse","Stranger Things"]},
-{id:"thriller-books",type:"Books",title:"Top 10 Psychological Thrillers",desc:"Books built around secrets, unreliable minds and sharp twists.",count:10,items:["The Silent Patient","Gone Girl","The Girl on the Train","Before I Go to Sleep","The Woman in the Window"]},
-{id:"mystery-books",type:"Books",title:"Top 10 Mystery Books",desc:"Classic puzzles and modern mysteries worth getting lost in.",count:10,items:["The Murder of Roger Ackroyd","And Then There Were None","The Guest List","Magpie Murders","The Thursday Murder Club"]},
+{id:"sci-fi-movies",type:"Movies",title:"Top 10 Sci-Fi Movies",desc:"Mind-bending worlds, ambitious ideas and stories that stay with you.",count:10,items:["Interstellar","Arrival","Dune: Part Two","The Matrix","Blade Runner 2049","2001: A Space Odyssey","Ex Machina","Children of Men","The Martian","Her"]},
+{id:"thriller-movies",type:"Movies",title:"Top 10 Thriller Movies",desc:"Tense mysteries, psychological games and unforgettable twists.",count:10,items:["Prisoners","Gone Girl","Se7en","Zodiac","Shutter Island","The Silence of the Lambs","Nightcrawler","The Invisible Man","Wind River","Nocturnal Animals"]},
+{id:"crime-shows",type:"TV Shows",title:"Top 10 Crime Series",desc:"Compelling investigations, complex characters and dark stories.",count:10,items:["Mindhunter","True Detective","The Wire","Breaking Bad","Fargo","Narcos","Broadchurch","Ozark","Mare of Easttown","Bosch"]},
+{id:"sci-fi-shows",type:"TV Shows",title:"Top 10 Sci-Fi Series",desc:"The series to explore when reality is not quite enough.",count:10,items:["Dark","Severance","Black Mirror","The Expanse","Stranger Things","Westworld","The Last of Us","Silo","Foundation","3 Body Problem"]},
+{id:"thriller-books",type:"Books",title:"Top 10 Psychological Thrillers",desc:"Books built around secrets, unreliable minds and sharp twists.",count:10,items:["The Silent Patient","Gone Girl","The Girl on the Train","Before I Go to Sleep","The Woman in the Window","Sharp Objects","Behind Closed Doors","The Couple Next Door","Rock Paper Scissors","None of This Is True"]},
+{id:"mystery-books",type:"Books",title:"Top 10 Mystery Books",desc:"Classic puzzles and modern mysteries worth getting lost in.",count:10,items:["The Murder of Roger Ackroyd","And Then There Were None","The Guest List","Magpie Murders","The Thursday Murder Club","The Big Four","The Hound of the Baskervilles","The Devotion of Suspect X","The Maid","The Paris Apartment"]},
 {id:"hidden-movies",type:"Movies",title:"Top 5 Hidden Movie Gems",desc:"Less obvious picks that deserve a place on your watchlist.",count:5,items:["Coherence","The Vast of Night","The Guilty","Blue Ruin","Upgrade"]},
 {id:"must-read",type:"Books",title:"5 Books Worth Reading",desc:"A compact reading list across mystery, fiction and big ideas.",count:5,items:["Piranesi","1984","The Shadow of the Wind","Project Hail Mary","The Book Thief"]}
 ];
@@ -44,7 +44,7 @@ const reviews=[
 {type:"Book Review",title:"The Silent Patient",score:"4.4/5",text:"A fast-moving psychological mystery built around a central question that keeps the pages turning.",verdict:"Worth Reading",date:"Featured Review"}
 ];
 
-let selectedType="All",selectedGenre="All",selectedList="all",liveResults=[];
+let selectedType="All",selectedGenre="All",selectedList="all",selectedIndiaLanguage="All",liveResults=[];
 
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
@@ -64,8 +64,10 @@ function render(){
 }
 
 function renderIndia(){
- document.querySelector("#indiaGrid").innerHTML=indiaPicks.map(card).join("");
+ const filtered=selectedIndiaLanguage==="All"?indiaPicks:indiaPicks.filter(x=>x.genre.toLowerCase().includes(selectedIndiaLanguage.toLowerCase()));
+ document.querySelector("#indiaGrid").innerHTML=filtered.map(card).join("");
 }
+
 
 function renderLists(){
  const filtered=selectedList==="all"?lists:lists.filter(x=>x.type===selectedList);
@@ -113,6 +115,7 @@ let timer;document.querySelector("#search").oninput=()=>{clearTimeout(timer);tim
 document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));b.classList.add("active");selectedType=b.dataset.type;liveSearch(document.querySelector("#search").value.trim())});
 document.querySelectorAll(".filter").forEach(b=>b.onclick=()=>{document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));b.classList.add("active");selectedGenre=b.textContent;render()});
 document.querySelectorAll(".listTab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".listTab").forEach(x=>x.classList.remove("active"));b.classList.add("active");selectedList=b.dataset.list;renderLists()});
+document.querySelectorAll(".indiaTab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".indiaTab").forEach(x=>x.classList.remove("active"));b.classList.add("active");selectedIndiaLanguage=b.dataset.language;renderIndia();bindCards()});
 document.querySelector("#recommendBtn").onclick=()=>{const q=document.querySelector("#search").value.trim();if(q)liveSearch(q);document.querySelector("#discover").scrollIntoView({behavior:"smooth"})};
 document.querySelector("#close").onclick=()=>document.querySelector("#modal").classList.remove("open");
 document.querySelector("#modal").onclick=e=>{if(e.target.id==="modal")e.currentTarget.classList.remove("open")};
