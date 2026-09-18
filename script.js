@@ -39,12 +39,15 @@ const lists=[
 ];
 
 const reviews=[
-{type:"Movie Review",title:"Dune: Part Two",score:"8.5/10",text:"A huge, confident sci-fi sequel with spectacular scale and strong character drama.",verdict:"Worth Watching",date:"Featured Review"},
-{type:"TV Review",title:"Severance",score:"8.7/10",text:"A strange workplace mystery that rewards patience with atmosphere, ideas and escalating tension.",verdict:"Worth Watching",date:"Featured Review"},
-{type:"Book Review",title:"The Silent Patient",score:"4.4/5",text:"A fast-moving psychological mystery built around a central question that keeps the pages turning.",verdict:"Worth Reading",date:"Featured Review"}
+{type:"Movie Review",region:"India",title:"Dune: Part Two",score:"8.5/10",text:"A spectacular sci-fi sequel with huge scale, political intrigue and strong character drama.",verdict:"Worth Watching",date:"Featured Review",release:"Movie"},
+{type:"TV Review",region:"International",title:"Severance",score:"8.7/10",text:"A strange workplace mystery that rewards patience with atmosphere, ideas and escalating tension.",verdict:"Worth Watching",date:"Featured Review",release:"TV Show"},
+{type:"Movie Review",region:"India",title:"Manjummel Boys",score:"8.2/10",text:"A gripping survival drama where friendship and escalating danger drive an emotionally charged story.",verdict:"Worth Watching",date:"Featured Review",release:"Movie"},
+{type:"TV Review",region:"India",title:"The Family Man",score:"8.7/10",text:"A smart spy thriller that balances high-stakes missions with family life and sharp humor.",verdict:"Worth Watching",date:"Featured Review",release:"TV Show"},
+{type:"Movie Review",region:"India",title:"Kantara",score:"8.2/10",text:"A distinctive blend of folklore, action and local culture with an atmospheric visual style.",verdict:"Worth Watching",date:"Featured Review",release:"Movie"},
+{type:"Book Review",region:"International",title:"The Silent Patient",score:"4.4/5",text:"A fast-moving psychological mystery built around a central question that keeps the pages turning.",verdict:"Worth Reading",date:"Featured Review",release:"Book"}
 ];
 
-let selectedType="All",selectedGenre="All",selectedList="all",selectedIndiaLanguage="All",liveResults=[];
+let selectedType="All",selectedGenre="All",selectedList="all",selectedIndiaLanguage="All",selectedReviewFilter="All",liveResults=[];
 
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
@@ -76,7 +79,8 @@ function renderLists(){
 }
 
 function renderReviews(){
- document.querySelector("#reviewsGrid").innerHTML=reviews.map(x=>'<article class="reviewCard" data-review="'+esc(x.title)+'"><div class="reviewTop"><span class="reviewBadge">'+esc(x.type)+'</span><span class="reviewScore">★ '+esc(x.score)+'</span></div><h3>'+esc(x.title)+'</h3><p>'+esc(x.text)+'</p><div class="reviewVerdict"><b>WatchNext: </b>'+esc(x.verdict)+' <span>· '+esc(x.date)+'</span></div></article>').join("");
+ const filtered=selectedReviewFilter==="All"?reviews:reviews.filter(x=>x.region===selectedReviewFilter||x.release===selectedReviewFilter);
+ document.querySelector("#reviewsGrid").innerHTML=filtered.map(x=>'<article class="reviewCard" data-review="'+esc(x.title)+'"><div class="reviewTop"><span class="reviewBadge">'+esc(x.type)+'</span><span class="reviewScore">★ '+esc(x.score)+'</span></div><h3>'+esc(x.title)+'</h3><p>'+esc(x.text)+'</p><div class="reviewVerdict"><b>WatchNext: </b>'+esc(x.verdict)+' <span>· '+esc(x.region)+' · '+esc(x.date)+'</span></div></article>').join("");
 }
 
 function openList(x){
@@ -85,7 +89,7 @@ function openList(x){
 }
 
 function openReview(x){
- document.querySelector("#modalBody").innerHTML='<div class="eyebrow">'+esc(x.type)+' · '+esc(x.date)+'</div><h2>'+esc(x.title)+'</h2><strong class="bigScore">★ '+esc(x.score)+'</strong><p>'+esc(x.text)+'</p><p><b>WatchNext Verdict:</b> '+esc(x.verdict)+'</p>';
+ document.querySelector("#modalBody").innerHTML='<div class="eyebrow">'+esc(x.type)+' · '+esc(x.region)+'</div><h2>'+esc(x.title)+'</h2><strong class="bigScore">★ '+esc(x.score)+'</strong><p>'+esc(x.text)+'</p><p><b>WatchNext Verdict:</b> '+esc(x.verdict)+'</p><p><b>Format:</b> '+esc(x.release)+' · <b>Review status:</b> Editorial</p><p class="reviewNote">Reviews on WatchNext are spoiler-free by default. Full review details can be added here as the editorial library grows.</p>';
  document.querySelector("#modal").classList.add("open");
 }
 
@@ -116,6 +120,7 @@ document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{document.querySelec
 document.querySelectorAll(".filter").forEach(b=>b.onclick=()=>{document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));b.classList.add("active");selectedGenre=b.textContent;render()});
 document.querySelectorAll(".listTab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".listTab").forEach(x=>x.classList.remove("active"));b.classList.add("active");selectedList=b.dataset.list;renderLists()});
 document.querySelectorAll(".indiaTab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".indiaTab").forEach(x=>x.classList.remove("active"));b.classList.add("active");selectedIndiaLanguage=b.dataset.language;renderIndia();bindCards()});
+document.querySelectorAll(".reviewTab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".reviewTab").forEach(x=>x.classList.remove("active"));b.classList.add("active");selectedReviewFilter=b.dataset.review;renderReviews();bindCards()});
 document.querySelector("#recommendBtn").onclick=()=>{const q=document.querySelector("#search").value.trim();if(q)liveSearch(q);document.querySelector("#discover").scrollIntoView({behavior:"smooth"})};
 document.querySelector("#close").onclick=()=>document.querySelector("#modal").classList.remove("open");
 document.querySelector("#modal").onclick=e=>{if(e.target.id==="modal")e.currentTarget.classList.remove("open")};
