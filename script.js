@@ -168,10 +168,21 @@ function openReview(x){
 
 function bindCards(){
  document.querySelectorAll(".saveBtn").forEach(b=>b.onclick=e=>{e.stopPropagation();toggleWatchlist(b.dataset.save)});
- document.querySelectorAll(".card").forEach(c=>c.onclick=()=>{let x=[...liveResults,...items,...indiaPicks].find(x=>x.name===c.dataset.name);if(x)openModal(x)});
+ document.querySelectorAll(".card").forEach(c=>c.onclick=()=>{let x=[...liveResults,...items,...indiaPicks].find(x=>x.name===c.dataset.name);if(x)openTitlePage(x)});
  document.querySelectorAll(".reviewCard").forEach(c=>c.onclick=()=>{const x=reviews.find(r=>r.title===c.dataset.review);if(x)openReview(x)});
 }
 
+function openTitlePage(x){
+ const d=titleDetails[x.name]||{};
+ const review=reviews.find(r=>r.title===x.name);
+ const similar=(d.similar||[]).map(v=>'<button class="similarLink" data-similar="'+esc(v)+'">'+esc(v)+'</button>').join("");
+ const cast=(d.cast||[]).map(v=>'<span class="castName">'+esc(v)+'</span>').join("");
+ const poster=x.image?'<div class="detailPoster large" style="background-image:linear-gradient(180deg,#0000,#000b),url(\''+esc(x.image)+'\')"></div>':'<div class="detailPoster large"><span class="initial">'+esc((x.name||"?")[0])+'</span></div>';
+ document.querySelector("#modalBody").innerHTML='<div class="titlePage"><div class="titlePageTop">'+poster+'<div class="detailMain"><div class="eyebrow">'+esc(x.type)+' · '+esc(x.year||"")+'</div><h2>'+esc(x.name)+'</h2><div class="detailRating">★ '+esc(x.rating||"—")+'</div><div class="tags">'+(x.tags||[]).map(t=>'<span class="tag">'+esc(t)+'</span>').join("")+'</div><p>'+esc(x.desc||x.why||"Discover this title on WatchNext.")+'</p><div class="detailButtons">'+(d.trailer?'<a class="detailButton primary" target="_blank" rel="noopener" href="'+esc(d.trailer)+'">▶ Watch Trailer</a>':'')+(d.where?'<a class="detailButton" target="_blank" rel="noopener" href="'+esc(d.where)+'">Where to Watch</a>':'')+'<button class="detailButton saveTitle" data-save-title="'+esc(x.name)+'">'+(watchlist.includes(x.name)?'♥ Saved':'♡ Add to Watchlist')+'</button></div></div></div><div class="detailSection"><h3>WatchNext Review</h3><p>'+esc(review?.text||d.review||x.why||"Our editorial team has not reviewed this title yet.")+'</p>'+(review?'<div class="reviewVerdict"><b>WatchNext: </b>'+esc(review.verdict)+' · '+esc(review.score)+'</div>':'')+'</div>'+(cast?'<div class="detailSection"><h3>Cast</h3><div class="castList">'+cast+'</div></div>':'')+(similar?'<div class="detailSection"><h3>You may also like</h3><div class="similarLinks">'+similar+'</div></div>':'')+'</div>';
+ document.querySelector("#modal").classList.add("open");
+ document.querySelectorAll(".similarLink").forEach(b=>b.onclick=()=>{const y=[...items,...indiaPicks].find(v=>v.name===b.dataset.similar);if(y)openTitlePage(y)});
+ document.querySelector(".saveTitle")?.addEventListener("click",()=>toggleWatchlist(x.name));
+}
 function openModal(x){
  const d=titleDetails[x.name]||{};
  const review=reviews.find(r=>r.title===x.name);
